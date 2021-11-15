@@ -1,23 +1,21 @@
+import math
+
 import numpy as np
 
-#this solution is based on the brute force algorithm its not the best and most efficient method of solving the TSP problem
+cities = ["Berlin","Moscow","Denver","Budapest","Tokyo","Helsinki"]
+cities_cordinates = [[4,3],[2,4],[5,3],[7,2],[1,1],[3,11]]
+pathIndex = []
+
+def bruteForce(arr):
+    for rows in len(cities_cordinates):
+        for search in range(rows,len(cities_cordinates)):
+            
 
 
-cities = ["Berlin", "Moscow", "Madrid", "Tokyo"]
-citi_distance = [[0, 29, 15, 35],
-                 [29, 0, 57, 42],
-                 [15, 57, 0, 61],
-                 [35, 42, 61, 0]]
-pathTake = []
 
 
-#kezelni kell hogy ne mehessen ugyan abba a városba vissza
-#maybe változóba tárolni az előző távot vagy indexet és nem engedni neki hogy ugyan oda menjen vissza
-
-def shortestPath(arr):
-    path = np.min(arr, axis=1)
-    return path
-
-pathTake = shortestPath(citi_distance)
-
-print(pathTake)
+def cordinateDistance(x1,y1,x2,y2):
+    firstX = math.pow((x1 - x2),2)
+    firstY = math.pow((y1 - y2),2)
+    distance = firstX + firstY
+    return math.sqrt(distance)
