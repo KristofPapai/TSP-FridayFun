@@ -1,3 +1,4 @@
+
 import math
 
 import numpy as np
@@ -6,6 +7,7 @@ cities = ["Berlin","Moscow","Denver","Budapest","Tokyo","Helsinki"]
 cities_cordinates = [[4,3],[2,4],[5,3],[7,2],[1,1],[3,11]]
 pathIndex = []
 
+#CSAK % DARAB LÉPÉS KELL PLUSZ AZ UTOLSO ÉS AZ ELSŐ KÖZÖTT
 
 def bruteForce(arr):
     matrixLength = len(arr)
@@ -15,9 +17,9 @@ def bruteForce(arr):
 
     #TALÁN ITT VAN PROBLÉMA?
     rows = 0
-    while(len(pathTaken) != len(arr)):
+    while(len(pathTaken) != len(arr)-1):
         distances = cordinetDistance2nd(arr, rows)
-        forbiddenFruit = distances[0]
+        forbiddenFruit = 0
         #itt lehet rosszul kezelem az utolso viszgaltok
         #mindindex nem lehet 0-a mert az a kiindulo pont
         #EMLÉKEZTETŐ I EGY ÉRTÉK NEM PEDIG EGY INDEX.....
@@ -33,7 +35,7 @@ def bruteForce(arr):
             usedMinValues.append(minValue)
         rows = minIndex
         pathTaken.append(minIndex)
-        print(minIndex)
+        #print(minIndex)
     print("--------------------")
     print("Útvonal: ",pathTaken)
     print("Értékek: ",usedMinValues)
@@ -52,13 +54,4 @@ def cordinetDistance2nd(arr,baseRow):
     print(distances)
     return distances
 
-
-#lehet irni kéne egy metodust ami ujragenerálja a distance mátrixot
-#és removolgatjuk az eredeti mátrixbol az értékeket
-
-
-
 print(bruteForce(cities_cordinates))
-
-
-
