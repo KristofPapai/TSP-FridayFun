@@ -1,28 +1,18 @@
 import math
-
 import numpy as np
 
 cities = ["Berlin","Moscow","Denver","Budapest","Tokyo","Helsinki"]
-cities_cordinates = [[4,3],[2,4],[5,3],[7,2],[1,1],[3,11]]
+cities_cordinates = [[4,3],[2,4],[9,3],[7,2],[1,6],[3,11]]
 pathIndex = []
-
-#CSAK % DARAB LÉPÉS KELL PLUSZ AZ UTOLSO ÉS AZ ELSŐ KÖZÖTT
 
 def bruteForce(arr):
     matrixLength = len(arr)
     pathTaken = []
-    #lehet while ciklus kéne inkább
     usedMinValues = []
 
-    #TALÁN ITT VAN PROBLÉMA?
     rows = 0
     while(len(pathTaken) != len(arr)-1):
         distances = cordinetDistance2nd(arr, rows)
-        forbiddenFruit = 0
-        #itt lehet rosszul kezelem az utolso viszgaltok
-        #mindindex nem lehet 0-a mert az a kiindulo pont
-        #EMLÉKEZTETŐ I EGY ÉRTÉK NEM PEDIG EGY INDEX.....
-        #VALAHOL AZ A GOND HOGY A KEZDŐPONT BEKAVAR
         minValue = min(i for i in distances if i > 0 and distances.index(i) not in pathTaken and distances.index(i) != 0)
         minIndex = distances.index(minValue)
         if(minIndex in pathTaken or minValue in usedMinValues):
@@ -30,15 +20,16 @@ def bruteForce(arr):
             minIndex = distances.index(minValue)
             usedMinValues.append(minValue)
         else:
-            print("belép ide valaha ez a szar?")
             usedMinValues.append(minValue)
+
         rows = minIndex
         pathTaken.append(minIndex)
-        #print(minIndex)
+        if(len(pathTaken) == len(arr)-1):
+            usedMinValues.append(distances[0])
     print("--------------------")
-    print("Útvonal: ",pathTaken)
-    print("Értékek: ",usedMinValues)
-    return True
+    print("Távolság amit a kereskedő bejárt: ",usedMinValues)
+    print("A kereskedő által bejárt teljes távolság: ",round(sum(usedMinValues),2),"km")
+    return pathTaken
 
 
 #ez itt végül lehet nem kell majd
@@ -53,4 +44,11 @@ def cordinetDistance2nd(arr,baseRow):
     print(distances)
     return distances
 
-print(bruteForce(cities_cordinates))
+outerPathTaken = bruteForce(cities_cordinates)
+print("Az útvonal amit a kereskedő bejárt: ",outerPathTaken)
+szoveg = "Meglátogatott városok: "
+for i in outerPathTaken:
+    szoveg += cities[i] + " "
+szoveg += cities[0]
+print(szoveg)
+print("Az utolsó város egyben a kiinduló város is.")
