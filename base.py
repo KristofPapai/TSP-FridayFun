@@ -1,4 +1,3 @@
-
 import math
 
 import numpy as np
@@ -24,10 +23,10 @@ def bruteForce(arr):
         #mindindex nem lehet 0-a mert az a kiindulo pont
         #EMLÉKEZTETŐ I EGY ÉRTÉK NEM PEDIG EGY INDEX.....
         #VALAHOL AZ A GOND HOGY A KEZDŐPONT BEKAVAR
-        minValue = min(i for i in distances if i > 0 and i != forbiddenFruit)
+        minValue = min(i for i in distances if i > 0 and distances.index(i) not in pathTaken and distances.index(i) != 0)
         minIndex = distances.index(minValue)
         if(minIndex in pathTaken or minValue in usedMinValues):
-            minValue = min(i for i in distances if i not in usedMinValues and i > 0 and i != forbiddenFruit)
+            minValue = min(i for i in distances if i not in usedMinValues and i > 0 and distances.index(i) not in pathTaken and distances.index(i) != 0)
             minIndex = distances.index(minValue)
             usedMinValues.append(minValue)
         else:
